@@ -1,4 +1,4 @@
-function animate(rot,G,dim,time)
+function animate(rot,G,dim,ang,time)
 
 l = dim(1);
 b = dim(2);
@@ -29,7 +29,7 @@ n = dim(4);
 figure
 
 
-for i=1:(length(time))
+for i=1:2:(length(time))
 
 tic;    
 t = time(i);    
@@ -42,7 +42,7 @@ O = G;
 L = l*[1;0;0];
 B = b*[0;1;0];
 H = h*[0;0;1];
-N = n*[1;0;0];
+N = n*[0;0;1];
 C = (L+B+H)/2; 
     
 %R = axang2rotm([N' i]);
@@ -54,12 +54,16 @@ N = R*(N-C) + C - zer;
 
 O = O+zer;
 
+
 EL = [L+O O]';
 hold off
 plot3(EL(:,1),EL(:,2),EL(:,3),'r')
 hold on
 axis equal
-axis ([-20 20 -20 20 -20 20])
+axis ([-10 30 -10 30 -10 30])
+xlabel('$x$','Interpreter','latex','FontSize',24);
+ylabel('$y$','Interpreter','latex','FontSize',24);
+zlabel('$z$','Interpreter','latex','FontSize',24);
 
 plot3(0,0,0)
 
@@ -92,7 +96,10 @@ plot3(EH(:,1),EH(:,2),EH(:,3),'r')
     
 O = O - zer;
 CN = [C C]' + [N+O O]';
-plot3(CN(:,1),CN(:,2),CN(:,3),'b')
+plot3(CN(:,1),CN(:,2),CN(:,3),'m')
+EW = [20*ang(i,:)'+O O]'+[C C]';
+plot3(EW(:,1),EW(:,2),EW(:,3),'b')
+
 drawnow() 
 
 t2 = toc;

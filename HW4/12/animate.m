@@ -1,26 +1,28 @@
-l = 5;
-b = 2;
-h = 6;
-n = 4;
+function animate(rot,G,dim,time)
 
-syms t
-time = linspace(1,20,200);
-alpha = sin(t);
-beta = 2*t;
-gamma = t;
+l = dim(1);
+b = dim(2);
+h = dim(3);
+n = dim(4);
+
+%syms t
+%time = linspace(1,20,200);
+%alpha = sin(t);
+%beta = 2*t;
+%gamma = t;
 
 
-Rx = [ 1         0                 0;
-       0    cos(alpha)   -sin(alpha);
-       0    sin(alpha)    cos(alpha)];
-Ry = [ cos(beta)  0      sin(beta);
-            0      1               0;  
-      -sin(beta)  0      cos(beta)];
-Rz = [ cos(gamma)  -sin(gamma)    0 ;
-       sin(gamma)   cos(gamma)    0 ;
-          0         0             1 ];
+%Rx = [ 1         0                 0;
+%       0    cos(alpha)   -sin(alpha);
+%       0    sin(alpha)    cos(alpha)];
+%Ry = [ cos(beta)  0      sin(beta);
+%            0      1               0;  
+%      -sin(beta)  0      cos(beta)];
+%Rz = [ cos(gamma)  -sin(gamma)    0 ;
+%       sin(gamma)   cos(gamma)    0 ;
+%          0         0             1 ];
       
-rot = Rz*Ry*Rx;      
+%rot = Rz*Ry*Rx;      
 
 
 
@@ -29,12 +31,14 @@ figure
 
 for i=1:(length(time))
 
+tic;    
 t = time(i);    
-R = eval(rot);
-
+%R = eval(rot);
+R = rot(:,:,i);
 
     
-O = [3;3;3];
+%O = [3;3;3];
+O = G;
 L = l*[1;0;0];
 B = b*[0;1;0];
 H = h*[0;0;1];
@@ -56,6 +60,9 @@ plot3(EL(:,1),EL(:,2),EL(:,3),'r')
 hold on
 axis equal
 axis ([-20 20 -20 20 -20 20])
+xlabel('$x$','Interpreter','latex','FontSize',24);
+ylabel('$y$','Interpreter','latex','FontSize',24);
+zlabel('$z$','Interpreter','latex','FontSize',24);
 
 plot3(0,0,0)
 
@@ -85,10 +92,17 @@ EH = EH + [B B]';
 plot3(EH(:,1),EH(:,2),EH(:,3),'r')
 EH = EH - [L L]';
 plot3(EH(:,1),EH(:,2),EH(:,3),'r')
-
+    
 O = O - zer;
 CN = [C C]' + [N+O O]';
 plot3(CN(:,1),CN(:,2),CN(:,3),'b')
 drawnow() 
-pause(0.01)
+
+t2 = toc;
+if (i~=1 && (time(i)-time(i-1) - t2)>0)
+pause(time(i)-time(i-1) - t2);
+end
+
+end
+
 end
