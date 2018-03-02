@@ -142,7 +142,7 @@ R(:,3,:) = z.R(:,[7:9]);
 R = permute(R,[2,3,1]);
 ang = z.ang;
 
-%animate(R,sat.pos,p.dim,ang,time)
+animate(R,sat.pos,p.dim,ang,time)
 
 
 

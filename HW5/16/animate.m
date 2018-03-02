@@ -102,6 +102,19 @@ plot3(EW(:,1),EW(:,2),EW(:,3),'b')
 
 drawnow() 
 
+%Compound Patch - columns are individual patches, rows are vertices of that
+%patch
+pX = [-1 1 0]'; 
+    %0 0 0]';
+pY = [-1/3 -1/3 2/3]';
+    %-1/3 -1/3 2/3]';
+pZ = [0 0 0]';
+    %0 0.5 0]';
+
+p1 = patch(pX,pY,pZ,'red');
+p1.FaceAlpha = 0.5;
+
+
 t2 = toc;
 if (i~=1 && (time(i)-time(i-1) - t2)>0)
 pause(time(i)-time(i-1) - t2);
