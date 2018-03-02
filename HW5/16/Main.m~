@@ -26,37 +26,24 @@ inertiaCalculations()
 global sat
 
 sat.v = [0 0 0]';
-
-sat.w = [0 0 1]';
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Discussion
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This motion for the satellite 1 is spinning about axis1 and 
-%% precessing axis1 at a fixed angle
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+sat.w = [ 0 0 1]';
 %principa axis of sat1
-%sat.w = sat.V1(:,2);
-
-%principal axis of sat2
-%sat.w = sat.V2(:,1);
+sat.w = sat.V1(:,1);
 
 sat.Mg = [0 0 0]';
 
 %Initial Conditions
 
-sat.I = sat.I1;
-sat.r3 = 1;
-sat.pos = sat.COM1';
+sat.I = sat.I2;
+sat.r3 = 0;
+sat.pos = sat.COM2';
 
 
 p.R = [sat.R(1,:) sat.R(2,:) sat.R(3,:)];
 p.dim = [sat.l sat.b sat.h sat.n];
 p.ang = sat.w';
 
-%%%%%%%%%%%%%%%%%%%
-%% Integration
-%%%%%%%%%%%%%%%%%%%%
+% initial conditions
 
 
 init = [p.R'; p.ang'];
@@ -114,7 +101,7 @@ view(3);
 
 %Angular Velocity Components
 figure(3)
-hold on;
+hold on;[1 0 0]'
 plot(time,ang(:,1),'.r');
 plot(time,ang(:,2),'*b');
 plot(time,ang(:,3),'xm');

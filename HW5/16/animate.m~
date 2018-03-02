@@ -73,8 +73,8 @@ C = (L+B+H)/2;
     
 %R = axang2rotm([N' i]);
 zer = R*(-G) + G;
-L = R*(L-G) + G;
-H = R*(H-G) + G;
+L = R*(L-G) + G -zer;
+H = R*(H-G) + G ;
 B = R*(B-G) + G;
 
 S1 = R*(S1-G) + G ;
@@ -88,27 +88,26 @@ N2 = R*(N2'-[G G]) + [G G] ;
 
 
 hold on
-plot3(G(1),G(2),G(3),'*b')
+plot3(0,0,0)
 
 %drawnow()
 %hold on
-
 h1 = surf(Sx + S1(1), Sy + S1(2), Sz + S1(3),'facecolor','k', 'facealpha', 0.8);
-h2 = surf(Sx + S2(1), Sy + S2(2), Sz + S2(3),'facecolor','m', 'facealpha', 0.8);
+h2 = surf(Sx + S2(1), Sy + S2(2), Sz + S2(3),'facecolor','b', 'facealpha', 0.8);
 h3 = surf(Sx*sat.r3 + S3(1), Sy*sat.r3 + S3(2), Sz*sat.r3 + S3(3),'facecolor','g', 'facealpha', 0.8);
-l1 = plot3(N1(1,:),N1(2,:),N1(3,:),'b');
-l2 = plot3(N2(1,:),N2(2,:),N2(3,:),'b');
+l1 = plot3(N1(1,:),N1(2,:),N1(3,:),'r');
+l2 = plot3(N2(1,:),N2(2,:),N2(3,:),'r');
 
 EL = [L zer]';
 vert0 = EL;
 
-EL = [EL(2,:); EL(1,:)] + [B-zer B-zer]';
+EL = [EL(2,:); EL(1,:)] + [B B]';
 vert1 = EL;
 
-EL = [EL(2,:); EL(1,:)] + [H-zer H-zer]';
+EL = [EL(2,:); EL(1,:)] + [H H]';
 vert2 = EL;
 
-EL = [EL(2,:); EL(1,:)] - [B-zer B-zer]';
+EL = [EL(2,:); EL(1,:)] - [B B]';
 vert3 = EL;
 
 vertices = zeros(4,6,3);
