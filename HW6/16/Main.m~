@@ -13,31 +13,32 @@ time.span = [0 20];
 %%%%%%%%%%%%%%%%%%%%%
 %% inertial condition
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Discussion
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% This motion for w = [0 0 1], the satellite 1 is spinning about axis1 and 
-%% precessing axis1 at a fixed angle
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 inertiaCalculations()
 
 global sat
 
 sat.v = [0 0 0]';
-sat.w = [0 -1 1]' + [2 -1 -1]';
+sat.wp = [0 0 4]';
+sat.ws = [0 0.3 20]';
+sat.w = sat.wp + sat.R*sat.ws;
 
 %principa axis of sat1
 %sat.w = sat.V1(:,2);
 
 %principal axis of sat2
-sat.w = sat.V2(:,2);
+%sat.w = sat.V2(:,2);
 
-sat.Mg = [0 0 0]';
+sat.Mg = [0 (sat.m*sat.g*sat.d*sin(sat.theta)) 0]';
+%% Discussion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% precessing axis1 at a fixed angle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Initial Conditions
 
+
 sat.I = sat.I1;
-sat.r3 = 1;
 sat.pos = sat.COM1';
 
 
@@ -52,8 +53,8 @@ p.ang = sat.w';
 
 init = [p.R'; p.ang'];
 
-opts.RelTol = 1e-3;
-opts.AbsTol = 1e-3;
+opts.RelTol = 1e-8;
+opts.AbsTol = 1e-8;
 
 % Or see opt = odeset for4 all options.
 tspan = time.span;
