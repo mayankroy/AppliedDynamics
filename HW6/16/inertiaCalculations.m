@@ -19,12 +19,12 @@ Rz = [ cos(gamm)  -sin(gamm)    0 ;
 rot = Rz*Ry*Rx;   
 
 sat.g = 10;
-sat.theta = pi/3;
+sat.theta = pi/6;
 
 sat.l = 1;
 sat.b = 1;
 sat.h = 0.1;
-sat.n = 1.5;
+sat.n = 0.5;
 sat.r = 2;
 sat.rho = 1;
 sat.d = 2;

@@ -19,10 +19,10 @@ inertiaCalculations()
 global sat
 
 sat.v = [0 0 0]';
-ws = 5;
+ws = 20;
 sat.ws = [0 0 ws]';
 
-pol = [(sat.I1(3,3)-sat.I1(1,1))*cos(sat.theta) sat.I1(3,3)*ws -sat.d*sat.m*sat.g];
+pol = [(sat.I1(1,1)-sat.I1(3,3))*cos(sat.theta) sat.I1(1,1)*ws -sat.d*sat.m*sat.g];
 wp = roots(pol);
 
 sat.wp = [0 0 wp(2)]';
@@ -58,8 +58,8 @@ p.ang = sat.w';
 
 init = [p.R'; p.ang'];
 
-opts.RelTol = 1e-6;
-opts.AbsTol = 1e-6;
+opts.RelTol = 1e-8;
+opts.AbsTol = 1e-8;
 
 % Or see opt = odeset for4 all options.
 tspan = time.span;

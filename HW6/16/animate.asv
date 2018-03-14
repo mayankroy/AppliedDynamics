@@ -48,14 +48,13 @@ Sz = Sz* sat.r;
 %S1 = patch('Faces', fvc.faces, 'Vertices', fvc.vertices, 'FaceColor', [1, 0, 0]);
 %S1 = patch('Faces', fvc.faces, 'Vertices', fvc.vertices, 'FaceColor', [1, 0, 0]);
 %S3 = patch('Faces', fvc.faces, 'Vertices', fvc.vertices, 'FaceColor', [1, 0, 0]);
-step = 60;
 
-for j=1:step:(length(time))
+for i=1:60:(length(time))
 
 tic;    
-t = time(j);    
+t = time(i);    
 %R = eval(rot);
-R = rot(:,:,j);
+R = rot(:,:,i);
 
     
 %O = [3;3;3];
@@ -115,14 +114,14 @@ for i = 1:3
 end
 
 p1.Vertices = permute([vertices(:,1,:);vertices(:,2,:);vertices(:,3,:);vertices(:,4,:);vertices(:,5,:);vertices(:,6,:)],[1 3 2]);
-pause(0.05);
+pause(0.1);
 
 delete(l1);
 delete(l2);
 delete(l3);
 t2 = toc;
-if (j>step && (time(j)-time(j-step) - t2)>0)
-pause(time(j)-time(j-step) - t2);
+if (i>time.step && (time(i)-time(i-60) - t2)>0)
+pause(time(i)-time(i-1) - t2);
 end
 
 end
